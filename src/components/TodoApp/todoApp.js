@@ -9,6 +9,7 @@ class TodoApp extends React.Component{
         this.state={
             // this array will contain all inputs from the user. Data is passed from child comp and copied here so that the info is accessible to the whole component
             todoList:[],
+            //this array is a replica of the above array. Only difference is that when filters are applied, this array contains the filtered items
             filteredList:[]
         }
     }
@@ -21,12 +22,11 @@ class TodoApp extends React.Component{
         //add the new element to the temporary array
         tempStateCloneArray.push(newInput);
 
-        // update the state
+        // update the both state items
         this.setState({ 
-            todoList:tempStateCloneArray
+            todoList:tempStateCloneArray,
+            filteredList:tempStateCloneArray
         });      
-
-        console.log('after addition array : ', this.state.todoList);
     }
 
     handleCallbackforDelete = (itemToDelete) =>{
@@ -37,11 +37,11 @@ class TodoApp extends React.Component{
         //remove the element from which delete request was sent
         tempStateCloneArray=tempStateCloneArray.filter ( (el) => el.id !== itemToDelete.id);
 
-        // update the state
+        // update the both state items
         this.setState({ 
-            todoList:tempStateCloneArray
+            todoList:tempStateCloneArray,
+            filteredList:tempStateCloneArray
         });      
-        console.log('after deletion array : ',this.state.todoList);
     }
 
     handleCallbackforComplete = (itemToComplete) =>{
@@ -56,38 +56,47 @@ class TodoApp extends React.Component{
         this.setState({ 
             todoList:tempStateCloneArray
         }); 
-        console.log('after completion array : ',this.state.todoList);
     }
 
     handleCallbackforFilter = (statusToShow) =>{
-        //console.log(statusToShow);
+
+        let tempStateCloneArray = [];
+        tempStateCloneArray = this.state.todoList;
 
         if(statusToShow === 'all'){
             console.log('show all');
-
             this.setState({
-                
-            })
+                filteredList:tempStateCloneArray
+            });
         }
 
         else if(statusToShow === 'completed'){
             console.log('show completed');
+            tempStateCloneArray=tempStateCloneArray.filter ( (el) => el.status === true);
+            this.setState({
+                filteredList:tempStateCloneArray
+            });
         }
 
-        else{
+        else if(statusToShow === 'incomplete'){
             console.log('show incomplete');
+            tempStateCloneArray=tempStateCloneArray.filter ( (el) => el.status === false);
+            this.setState({
+                filteredList:tempStateCloneArray
+            });
         }
-
-
     }
 
+    componentDidUpdate() {
+        console.log(this.state.filteredList);    
+    }
 
     render(){
         return(
             <div className="todoApp">
                 <UserInput receiveInput={this.handleCallbackforAddInput}/>
                 <Filter filterList={this.handleCallbackforFilter}/>
-                {this.state.todoList.map ( (todo) => (
+                {this.state.filteredList.map ( (todo) => (
                     <div>
                         <TodoItem key={todo.id} completeTodo={this.handleCallbackforComplete} deleteTodo={this.handleCallbackforDelete} todo={todo} text={todo.name} />
                     </div>
