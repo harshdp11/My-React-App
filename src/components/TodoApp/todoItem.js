@@ -29,6 +29,10 @@ class TodoItem extends React.Component{
         event.preventDefault();        
     }
 
+    handleEditRequest = (event) => {
+        console.log(event.target.value);
+        event.preventDefault();   
+    }
 
 
     render(){
@@ -38,7 +42,7 @@ class TodoItem extends React.Component{
                     {this.props.text}
                 </h3>
                 <input type = "submit" value = "completed" onClick={this.handleCompleteRequest}/>
-                <input type = "submit" value = "edit"/>
+                <input type = "submit" value = "edit" onClick={this.handleEditRequest}/>
                 <input type = "submit" value = "remove" onClick={this.handleDeleteRequest}/>
             </form>
         )
