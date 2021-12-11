@@ -1,0 +1,28 @@
+button{
+    width: 40px;
+    height: 40px;
+    background-color:black;
+    border: 1px solid white;
+    color: white;
+    text-transform: uppercase;
+}
+
+.row{
+    display: flex;
+}
+
+.show{
+    display: block;
+}
+
+.hide{
+    display: none;
+}
+
+button.resetGame{
+    width: 200px;
+    height: 40px;
+    background-color:rgb(202, 202, 202);
+    color: black;
+    text-transform: none;
+}

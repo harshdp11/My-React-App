@@ -19,7 +19,6 @@ class UserInput extends React.Component{
         // send the input data to the parent component
         this.props.receiveInput(userInput);
 
-        
         // the the input feild after submit has been clicked
         event.target.myname.value=null;
         event.preventDefault();

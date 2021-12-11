@@ -44,7 +44,9 @@ class TodoApp extends React.Component{
         // update the both state items
         this.setState({ 
             todoList:tempStateCloneArray,
-            filteredList:tempStateCloneArray
+            filteredList:tempStateCloneArray,
+            // Imagine scenario where filter is set to complete and user adds a new item in todolst. For this case, whenever user adds a new input, the filter is updated to automatically show all
+            currentStatus:'all'
         });      
     }
 
